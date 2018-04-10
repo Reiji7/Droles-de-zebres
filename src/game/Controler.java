@@ -13,10 +13,10 @@ public class Controler {
 		this.board = new Board();
 		
 		System.out.println("Entrez le nom du joueur 1 : ");
-		this.Player1 = new Player(Config.sc.nextLine());
+		this.Player1 = new Player(Config.sc.nextLine(), "Rouge");
 		
 		System.out.println("Entrez le nom du joueur 2 : ");
-		this.Player2 = new Player(Config.sc.nextLine());
+		this.Player2 = new Player(Config.sc.nextLine(), "Bleu");
 	}
 	
 }

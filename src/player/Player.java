@@ -18,6 +18,8 @@ public class Player {
 		/*
 		 * Giving player's pawn 
 		 */
+		this.pawnBox = new ArrayList<>();
+		
 		pawnBox.add(new Gazelle(couleur));
 		pawnBox.add(new Gazelle(couleur));
 		pawnBox.add(new Gazelle(couleur));
