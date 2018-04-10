@@ -21,38 +21,18 @@ public class Board {
 	 * Initialization of all the square
 	 */
 	public Board() {
+
+		int[] squareNb = {0,2,3,3,3,3,0,2,2,3,4,4,0,0,2,3,3,4,1,0,2,2,2,5,1,1,5,5,5,5};
 		this.board = new Square[5][6];
 		
-		board[0][0] = new Square(0);
-		board[0][1] = new Square(2);
-		board[0][2] = new Square(3);
-		board[0][3] = new Square(3);
-		board[0][4] = new Square(3);
-		board[0][5] = new Square(3);
-		board[1][0] = new Square(0);
-		board[1][1] = new Square(2);
-		board[1][2] = new Square(2);
-		board[1][3] = new Square(3);
-		board[1][4] = new Square(4);
-		board[1][5] = new Square(4);
-		board[2][0] = new Square(0);
-		board[2][1] = new Square(0);
-		board[2][2] = new Square(2);
-		board[2][3] = new Square(3);
-		board[2][4] = new Square(3);
-		board[2][5] = new Square(4);
-		board[3][0] = new Square(1);
-		board[3][1] = new Square(0);
-		board[3][2] = new Square(2);
-		board[3][3] = new Square(2);
-		board[3][4] = new Square(2);
-		board[3][5] = new Square(5);
-		board[4][0] = new Square(1);
-		board[4][1] = new Square(1);
-		board[4][2] = new Square(5);
-		board[4][3] = new Square(5);
-		board[4][4] = new Square(5);
-		board[4][5] = new Square(5);
+		for(int index1 = 0; index1 < squareNb.length; index1++) {
+			for(int index2 = 0; index2 < 5; index2++) {
+				for(int index3 = 0; index3 < 6; index3++) {
+					board[index2][index3] = new Square(squareNb[index1]);
+				}
+			}
+		}
+		
 	}
 	
 
