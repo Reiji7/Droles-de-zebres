@@ -1,8 +1,8 @@
 package pawn;
 
-public class Zebre extends Pawn{
+public class Zebra extends Pawn{
 
-	public Zebre(String couleur) {
+	public Zebra(String couleur) {
 		super(6, couleur);
 	}
 

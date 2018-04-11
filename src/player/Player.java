@@ -27,11 +27,11 @@ public class Player {
 		pawnBox.add(new Gazelle(couleur));
 		pawnBox.add(new Gazelle(couleur));
 
-		pawnBox.add(new Zebre(couleur));
-		pawnBox.add(new Zebre(couleur));
-		pawnBox.add(new Zebre(couleur));
-		pawnBox.add(new Zebre(couleur));
-		pawnBox.add(new Zebre(couleur));
+		pawnBox.add(new Zebra(couleur));
+		pawnBox.add(new Zebra(couleur));
+		pawnBox.add(new Zebra(couleur));
+		pawnBox.add(new Zebra(couleur));
+		pawnBox.add(new Zebra(couleur));
 
 		pawnBox.add(new Elephant(couleur));
 

@@ -14,12 +14,12 @@ public class Controler {
 	public Controler() {
 		this.board = new Board();
 		
-		System.out.print("Entrez le nom du joueur 1 : \t");
+		System.out.print("Enter the name of player 1 : \t");
 		this.Player1 = new Player("Reiji", "Rouge");
 		System.out.println();
 
 		
-		System.out.print("Entrez le nom du joueur 2 : \t");
+		System.out.print("Enter the name of player 2 : \t");
 		this.Player2 = new Player("Bob", "Bleu");
 		System.out.println();
 	}
