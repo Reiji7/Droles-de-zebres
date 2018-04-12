@@ -12,7 +12,7 @@ import config.IdPawn;
 public class Gazelle extends Pawn{
 
 	public Gazelle(String couleur) {
-		super(IdPawn.Gazelle.getValue(), couleur);
+		super(IdPawn.Gazelle.getValue(), couleur, "Gazelle");
 	}
 
 	public String toString(){

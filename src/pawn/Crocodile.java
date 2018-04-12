@@ -13,7 +13,7 @@ import config.IdPawn;
 public class Crocodile extends Pawn{
 
 	public Crocodile(String couleur) {
-		super(IdPawn.Crocodile.getValue(), couleur);
+		super(IdPawn.Crocodile.getValue(), couleur, "Crocodile");
 	}
 	
 	public String toString(){

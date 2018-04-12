@@ -1,6 +1,7 @@
 package config;
 /**
- * This enumeration serves as both value and identifier for the pieces
+ * This enumeration serves as both value and identifier for the pieces.
+ * It's possible because each pawn has a different value.
  */
 public enum IdPawn {
 

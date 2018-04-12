@@ -26,9 +26,9 @@ public class Controler {
 	
 	
 	public void launch() {
-		placeImpala();
+		//placeImpala();
 		
-		
+		this.Player1.choosePawn();
 	}
 	
 	
@@ -38,7 +38,7 @@ public class Controler {
 	private void placeImpala() {
 		try {
 			do {
-				System.out.print("Joueur 1  ou voulez vous placer l'Impala Jones ? (1 à 24) :\t");
+				System.out.print("Player 1 where you want to place the Impala Jones ? (1 to 24) :\t");
 				this.impala = Config.sc.nextInt();
 				System.out.println();
 			}while(1 > impala || impala > 24);

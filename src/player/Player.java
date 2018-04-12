@@ -1,5 +1,7 @@
 package player;
+
 import java.util.ArrayList;
+import java.util.Collections;
 
 import pawn.*;
 
@@ -20,18 +22,13 @@ public class Player {
 		 */
 		this.pawnBox = new ArrayList<>();
 		
-		pawnBox.add(new Gazelle(couleur));
-		pawnBox.add(new Gazelle(couleur));
-		pawnBox.add(new Gazelle(couleur));
-		pawnBox.add(new Gazelle(couleur));
-		pawnBox.add(new Gazelle(couleur));
-		pawnBox.add(new Gazelle(couleur));
-
-		pawnBox.add(new Zebra(couleur));
-		pawnBox.add(new Zebra(couleur));
-		pawnBox.add(new Zebra(couleur));
-		pawnBox.add(new Zebra(couleur));
-		pawnBox.add(new Zebra(couleur));
+		for(int index = 0; index < 6; index++) {
+			pawnBox.add(new Gazelle(couleur));
+		}
+		
+		for(int index = 0; index < 5; index++) {
+			pawnBox.add(new Zebra(couleur));
+		}
 
 		pawnBox.add(new Elephant(couleur));
 
@@ -39,5 +36,29 @@ public class Player {
 	
 		pawnBox.add(new Crocodile(couleur));
 		pawnBox.add(new Crocodile(couleur));
+	}
+
+	public int choosePawn() {
+
+		ArrayList<Pawn> distinctList = new ArrayList();
+		ArrayList<Integer> numb = new ArrayList();
+		ArrayList<String> tamp = new ArrayList();
+		
+		for(Pawn p : pawnBox) {
+			if(!tamp.contains(p.toString())) {
+				distinctList.add(p);
+				tamp.add(p.toString());
+			}
+		}
+		
+		
+		for(int index = 0; index < distinctList.size(); index++) {
+			System.out.println(index + ") " +
+		distinctList.get(index).toString() + " " + 
+					Collections.frequency(this.pawnBox, distinctList.get(index)) + 
+					" Pawn");
+		}
+
+		return 0;
 	}
 }
