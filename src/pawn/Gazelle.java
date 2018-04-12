@@ -3,6 +3,8 @@
  */
 package pawn;
 
+import config.IdPawn;
+
 /**
  * @author Adrien
  *
@@ -10,7 +12,7 @@ package pawn;
 public class Gazelle extends Pawn{
 
 	public Gazelle(String couleur) {
-		super(2, couleur);
+		super(IdPawn.Gazelle.getValue(), couleur);
 	}
 
 	public String toString(){

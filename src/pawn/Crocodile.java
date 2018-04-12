@@ -4,6 +4,8 @@
  */
 package pawn;
 
+import config.IdPawn;
+
 /**
  * @author Adrien
  *
@@ -11,7 +13,7 @@ package pawn;
 public class Crocodile extends Pawn{
 
 	public Crocodile(String couleur) {
-		super(0, couleur);
+		super(IdPawn.Crocodile.getValue(), couleur);
 	}
 	
 	public String toString(){
