@@ -33,6 +33,7 @@ public class Board {
 		}
 	}
 
+	
 	/**
 	 * Adding pawn 
 	 * 
@@ -120,6 +121,7 @@ public class Board {
 		}
 	}
 
+	
 	/**
 	 * Retourne les voisins d'une case selon ses coordonnees
 	 * @param x
@@ -155,6 +157,7 @@ public class Board {
 		return tmp;
 	}
 
+	
 	/**
 	 * On utilise cette methode quand on veut poser un crocodile, pour savoir si l'on peut l'echanger de place avec une gazelle
 	 * @param x
