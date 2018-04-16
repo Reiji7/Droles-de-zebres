@@ -12,12 +12,12 @@ public class Player {
 	private String name;
 	private ArrayList<Pawn> pawnBox;
 	private int score;
-	private String couleur;
+	private String color;
 	
 	
-	public Player(String name, String couleur) {
+	public Player(String name, String color) {
 		this.name = name;
-		this.couleur = couleur;
+		this.color = color;
 		
 		/*
 		 * Giving player's pawn 
@@ -25,22 +25,25 @@ public class Player {
 		this.pawnBox = new ArrayList<>();
 		
 		for(int index = 0; index < 6; index++) {
-			pawnBox.add(new Gazelle(couleur));
+			pawnBox.add(new Gazelle(color));
 		}
 		
 		for(int index = 0; index < 5; index++) {
-			pawnBox.add(new Zebra(couleur));
+			pawnBox.add(new Zebra(color));
 		}
 
-		pawnBox.add(new Elephant(couleur));
+		pawnBox.add(new Elephant(color));
 
-		pawnBox.add(new Lion(couleur));
+		pawnBox.add(new Lion(color));
 	
-		pawnBox.add(new Crocodile(couleur));
-		pawnBox.add(new Crocodile(couleur));
+		pawnBox.add(new Crocodile(color));
+		pawnBox.add(new Crocodile(color));
 		
 	}
 
+	public String getColor(){
+		return this.color;
+	}
 	
 	/**
 	 * Pawn selection procedure
@@ -125,7 +128,15 @@ public class Player {
 		return i;
 	}
 
-
+	/**
+	 * Returns the pawn (needs to be a Gazelle) to this player's pawnBox
+	 * @param p
+	 */
+	public void returningGazelle(Pawn p){
+		if(p.toString()=="Gazelle"){
+			pawnBox.add(p);
+		}
+	}
 
 	
 	public String getName() {

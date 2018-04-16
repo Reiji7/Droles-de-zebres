@@ -30,7 +30,14 @@ public class Square {
 		this.pawn = p;
 	}
 	
-	public void echanger(Square s){
+	/**
+	 * Removes the pawn from the square
+	 */
+	public void removePawn(){
+		this.pawn = null;
+	}
+	
+	public void swap(Square s){
 		Pawn tmp = this.pawn;
 		this.pawn = s.pawn;
 		s.pawn = tmp;

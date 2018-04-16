@@ -33,6 +33,9 @@ public class Board {
 		}
 	}
 
+	public Pawn getPawnAt(int x, int y){
+		return board[x][y].getPawn();
+	}
 	
 	/**
 	 * Adding pawn 
@@ -65,19 +68,18 @@ public class Board {
 				 */
 				for(int i=0;i<voisins.size();i++){
 					if(voisins.get(i).getPawn().toString()=="Lion"){
-						p.seCache();
+						p.hides();
 					}
 				}
 				break;
 
+				/* We only take care of the case of a lion being placed next to a zebra in this class
+				 * The case where a lion is placed next to a gazelle is being treated in game.Controller.java
+				 */
 			case "Lion":
 				for(int i=0;i<voisins.size();i++){
 					if(voisins.get(i).getPawn().toString()=="Zebre"){
-						voisins.get(i).getPawn().seCache();
-					}
-
-					if(voisins.get(i).getPawn().toString()=="Gazelle"){
-						voisins.get(i).getPawn().fuite();
+						voisins.get(i).getPawn().hides();
 					}
 				}
 				break;
@@ -85,22 +87,23 @@ public class Board {
 			case "Crocodile":
 				ArrayList<Square> listeG = gazellesEchangeables(x,y);
 
-				if(listeG.size()==0){ //S'il n'y a pas de gazelle a echanger, ne fait rien
+				if(listeG.size()==0){ //If there is no Gazelle, does nothing
 
 				} else
-					if(listeG.size()==1){ // S'il n'y a qu'une gazelle a echanger, on le fait
+					if(listeG.size()==1){ //If there is only one Gazelle that can be swaped, does swap the two Pawns
 						board[x][y].adjPown(p);
-						board[x][y].echanger(listeG.get(0));
-						return true; //On termine la methode ici, pour ne pas avoir a reposer un pion 
-					} else { //Il y a plus d'une gazelle que l'on peut echanger, il faut demander au joueur laquelle
+						board[x][y].swap(listeG.get(0));
+						return true; //We stop the method here, so we don't try to put another Pawn at the end
+					} else { //There's is more than one Gazelle that can be swaped, so we ask the player which one to swap with
 
 					}
 				break;
 
 			case "Zebre":
+				//If a zebra is placed next to a lion, he's immediatly hidden
 				for(int i=0;i<voisins.size();i++){
 					if(voisins.get(i).getPawn().toString()=="Lion"){
-						p.seCache();
+						p.hides();
 					}
 				}
 				break;
@@ -110,8 +113,8 @@ public class Board {
 			}
 
 			/*
-			 * Une fois les conditions verifiees et les actions executees, on ajoute le pion au plateau 
-			 * (sauf dans le cas ou un crocodile a echange de place avec une gazelle)
+			 * Once all conditions are verified and all actions executed, we place the pawn on the board
+			 * (except in the case of a crocodile swaping with a gazelle)
 			 */
 			board[x][y].adjPown(p);
 			return true;
@@ -121,9 +124,16 @@ public class Board {
 		}
 	}
 
+	/**
+	 * Removes the pawn from the selected square
+	 * @param sq
+	 */
+	public void removePawn(Square sq){
+		sq.removePawn();
+	}
 	
 	/**
-	 * Retourne les voisins d'une case selon ses coordonnees
+	 * Returns a square's neighbors 
 	 * @param x
 	 * @param y
 	 * @return
@@ -159,7 +169,7 @@ public class Board {
 
 	
 	/**
-	 * On utilise cette methode quand on veut poser un crocodile, pour savoir si l'on peut l'echanger de place avec une gazelle
+	 * We use this method when the player wants to put a crocodile, to know if we can swap it with a Gazelle
 	 * @param x
 	 * @param y
 	 * @return 
@@ -168,7 +178,7 @@ public class Board {
 		ArrayList<Square> voisins = voisins(x,y);
 		ArrayList<Square> echangeable = new ArrayList<Square>();
 		/*
-		 * On regarde s'il y a des gazelles autour de la case cible
+		 * We look if there is some Gazelles around the sqaure
 		 */
 		for(int i=0;i<voisins.size();i++){
 			if(voisins.get(i).getPawn().toString() == "Gazelle"){
@@ -176,7 +186,7 @@ public class Board {
 			}
 		}
 		/*
-		 * Puis, on supprime les gazelles qui ne sont pas de l'autre cote de la riviere
+		 * Then, we remove the gazelles that's aren't accross the river
 		 */
 		for(int i=0;i<echangeable.size();i++){
 			if(board[x][y].getSector()==echangeable.get(i).getSector()){
