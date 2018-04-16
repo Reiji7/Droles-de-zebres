@@ -32,4 +32,8 @@ public abstract class Pawn {
 	public String getColor(){
 		return this.color;
 	}
+	
+	public int getValue(){
+		return this.value;
+	}
 }

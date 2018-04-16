@@ -65,6 +65,15 @@ public class Controler {
 		}
 	}
 
+	/**
+	 * Shows the player's points
+	 */
+	public void points(){
+		int[] points = board.pointCounter();
+		System.out.println("Red player has " + points[0] + " points");
+		System.out.println("Blue player has " + points[1] + " points");
+	}
+	
 	
 	/**
 	 * Returns a Gazelle to it's owner pawnBox
