@@ -41,7 +41,48 @@ public class Controler {
 	}
 
 	/**
-	 * Places a pawn selected by the player
+	 * Moves impala around the board
+	 */
+	public void moveImpala(){
+		System.out.println("How much does Impala moves? (between 1 and 3): ");
+		int tmp = Config.sc.nextInt();
+		if(tmp<1 && tmp>3){
+			System.out.println("Bad entry");
+		}else {
+			impala += tmp;
+			if(impala > 22){
+				impala -= 22;
+			}
+		}
+	}
+	
+	/**
+	 * The player chooses where to place his pawn first, then we call placePawn() to select a pawn and place it
+	 * @param pl
+	 */
+	public void playPawn(Player pl){
+		int tmp;
+		if(impala<=6){
+			System.out.println("Please select ordinate: ");
+			tmp = Config.sc.nextInt();
+			placePawn(pl,impala,tmp);
+		} else if(impala <= 11){
+			System.out.println("Please select abscissa: ");
+			tmp = Config.sc.nextInt();
+			placePawn(pl,tmp,impala - 6);
+		} else if(impala <= 17){
+			System.out.println("Please select ordinate: ");
+			tmp = Config.sc.nextInt();
+			placePawn(pl,-(impala) + 18,tmp);
+		} else {
+			System.out.println("Please select abscissa: ");
+			tmp = Config.sc.nextInt();
+			placePawn(pl,tmp,-(impala) + 23);
+		}
+	}
+	
+	/**
+	 * Places a pawn on a square, both selected by the player
 	 * @param pl
 	 * @param x
 	 * @param y
@@ -93,10 +134,10 @@ public class Controler {
 	private void placeImpala() {
 		try {
 			do {
-				System.out.print(this.Player1.getName() + " where you want to place the Impala Jones ? (1 to 24) :\t");
+				System.out.print(this.Player1.getName() + " where you want to place the Impala Jones ? (1 to 22) :\t");
 				this.impala = Config.sc.nextInt();
 				System.out.println();
-			}while(1 > impala || impala > 24);
+			}while(1 > impala || impala > 22);
 		}
 		catch(java.util.InputMismatchException e) {
 			System.out.print("Bad entry try again...");
