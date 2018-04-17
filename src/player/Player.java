@@ -41,6 +41,14 @@ public class Player {
 		
 	}
 
+	public void setScore(int score){
+		this.score = score;
+	}
+	
+	public int getScore(){
+		return score;
+	}
+	
 	public String getColor(){
 		return this.color;
 	}

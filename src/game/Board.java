@@ -18,7 +18,8 @@ public class Board {
 	 * Board of game
 	 */
 	private Square[][] board;
-
+	private boolean inauguration = false;
+	
 	public Board() {
 		this.board = new Square[5][6];
 
@@ -32,9 +33,27 @@ public class Board {
 			}
 		}
 	}
-
+	
 	public Pawn getPawnAt(int x, int y){
 		return board[x][y].getPawn();
+	}
+	
+	public boolean newInauguration(int x, int y){
+		if(inauguration == true){
+			return false;
+		}
+		int sector = board[x][y].getSector();
+		for(int i=0;i<5;i++){
+			for(int j=0; j<6 ;j++){
+				if(board[i][j].getSector() == sector){
+					if(board[i][j].getPawn()==null){
+						return false;
+					}
+				}
+			}
+		}
+		inauguration = true;
+		return true;
 	}
 	
 	/**

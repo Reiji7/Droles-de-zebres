@@ -63,21 +63,40 @@ public class Controler {
 	public void playPawn(Player pl){
 		int tmp;
 		if(impala<=6){
+			//We ask where to place the pawn on the column
 			System.out.println("Please select ordinate: ");
 			tmp = Config.sc.nextInt();
+			//We place the pawn
 			placePawn(pl,impala,tmp);
+			//We check if this sector is ready to accept visitors
+			if(board.newInauguration(impala, tmp)){
+				pl.setScore(pl.getScore()+5);
+			};
 		} else if(impala <= 11){
+			//We ask where to place the pawn on the line
 			System.out.println("Please select abscissa: ");
 			tmp = Config.sc.nextInt();
+			//We place the pawn
 			placePawn(pl,tmp,impala - 6);
+			//We check if this sector is ready to accept visitors
+			if(board.newInauguration(tmp, impala - 6)){
+				pl.setScore(pl.getScore()+5);
+			};
 		} else if(impala <= 17){
+			//And so on ...
 			System.out.println("Please select ordinate: ");
 			tmp = Config.sc.nextInt();
 			placePawn(pl,-(impala) + 18,tmp);
+			if(board.newInauguration(-(impala) + 18, tmp)){
+				pl.setScore(pl.getScore()+5);
+			};
 		} else {
 			System.out.println("Please select abscissa: ");
 			tmp = Config.sc.nextInt();
 			placePawn(pl,tmp,-(impala) + 23);
+			if(board.newInauguration(tmp, -(impala) +23)){
+				pl.setScore(pl.getScore()+5);
+			};
 		}
 	}
 	
@@ -111,6 +130,8 @@ public class Controler {
 	 */
 	public void points(){
 		int[] points = board.pointCounter();
+		Player1.setScore(points[0]);
+		Player2.setScore(points[1]);
 		System.out.println("Red player has " + points[0] + " points");
 		System.out.println("Blue player has " + points[1] + " points");
 	}
