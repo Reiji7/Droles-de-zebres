@@ -13,6 +13,7 @@ public class Controler {
 	private Board board;
 	private Player Player1, Player2;
 	private int impala;
+	private boolean currentPlayer1 = true;
 
 
 	public Controler() {
@@ -38,6 +39,15 @@ public class Controler {
 		this.board.adjPown(0, 0, this.Player1.choosePawn());
 		this.board.adjPown(0, 0, this.Player2.choosePawn());
 
+		//Game loop
+		while(!endGame()){
+			if(currentPlayer1){
+				playPawn(Player1);
+			} else {
+				playPawn(Player2);
+			}
+			moveImpala();
+		}
 	}
 
 	/**
@@ -53,6 +63,19 @@ public class Controler {
 			if(impala > 22){
 				impala -= 22;
 			}
+		}
+	}
+	
+	/**
+	 * Check if the game is over (when both players run out of pawn to play)
+	 * @return
+	 */
+	public boolean endGame(){
+		if(Player1.pawnBoxSize() == 0 && Player2.pawnBoxSize() ==0){
+			points();
+			return true;
+		} else {
+			return false;
 		}
 	}
 	
@@ -127,6 +150,7 @@ public class Controler {
 
 	/**
 	 * Shows the player's points
+	 * If the game is over, it also shows who won
 	 */
 	public void points(){
 		int[] points = board.pointCounter();
@@ -134,6 +158,13 @@ public class Controler {
 		Player2.setScore(points[1]);
 		System.out.println("Red player has " + points[0] + " points");
 		System.out.println("Blue player has " + points[1] + " points");
+		if(endGame()){
+			if(Player1.getScore() > Player2.getScore()){
+				System.out.println("Red player won!");
+			} else {
+				System.out.println("Blue player won!");
+			}
+		}
 	}
 	
 	

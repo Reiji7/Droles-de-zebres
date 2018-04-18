@@ -41,6 +41,10 @@ public class Player {
 		
 	}
 
+	public int pawnBoxSize(){
+		return this.pawnBox.size();
+	}
+	
 	public void setScore(int score){
 		this.score = score;
 	}
