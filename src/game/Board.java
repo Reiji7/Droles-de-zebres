@@ -34,19 +34,33 @@ public class Board {
 		}
 	}
 	
-	
+	/**
+	 * Return the pawn at [x;y] cordinates
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public Pawn getPawnAt(int x, int y){
-		return board[x][y].getPawn();
+		if(board[x][y].getPawn() != null){
+			return board[x][y].getPawn();
+		}
+		return null;
 	}
 	
 	
+	/**
+	 * Checks if the pawn placed filled a whole sector
+	 * @param x
+	 * @param y
+	 * @return
+	 */
 	public boolean newInauguration(int x, int y){
 		if(inauguration == true){
 			return false;
 		}
 		int sector = board[x][y].getSector();
-		for(int i=0;i<5;i++){
-			for(int j=0; j<6 ;j++){
+		for(int i=0;i<6;i++){
+			for(int j=0; j<5 ;j++){
 				if(board[i][j].getSector() == sector){
 					if(board[i][j].getPawn()==null){
 						return false;

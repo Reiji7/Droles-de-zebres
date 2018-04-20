@@ -46,6 +46,10 @@ public class Square {
 	}
 	
 	
+	/**
+	 * Swaps two square's pawns
+	 * @param s
+	 */
 	public void swap(Square s){
 		Pawn tmp = this.pawn;
 		this.pawn = s.getPawn();
