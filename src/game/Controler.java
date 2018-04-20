@@ -36,9 +36,6 @@ public class Controler {
 		placeImpala();
 		Config.split();
 
-		this.board.adjPown(0, 0, this.Player1.choosePawn());
-		this.board.adjPown(0, 0, this.Player2.choosePawn());
-
 		//Game loop
 		while(!endGame()){
 			if(currentPlayer1){
@@ -49,6 +46,7 @@ public class Controler {
 			moveImpala();
 		}
 	}
+	
 
 	/**
 	 * Moves impala around the board
@@ -66,12 +64,13 @@ public class Controler {
 		}
 	}
 	
+	
 	/**
 	 * Check if the game is over (when both players run out of pawn to play)
 	 * @return
 	 */
 	public boolean endGame(){
-		if(Player1.pawnBoxSize() == 0 && Player2.pawnBoxSize() ==0){
+		if(Player1.pawnBoxSize() == 0 && Player2.pawnBoxSize() == 0){
 			points();
 			return true;
 		} else {
@@ -79,15 +78,17 @@ public class Controler {
 		}
 	}
 	
+	
 	/**
 	 * The player chooses where to place his pawn first, then we call placePawn() to select a pawn and place it
 	 * @param pl
 	 */
 	public void playPawn(Player pl){
 		int tmp;
-		if(impala<=6){
+		System.out.println("impala: " + impala);
+		if(impala<6){
 			//We ask where to place the pawn on the column
-			System.out.println("Please select ordinate: ");
+			System.out.println("Please select ordinate (0 to 5) : ");
 			tmp = Config.sc.nextInt();
 			//We place the pawn
 			placePawn(pl,impala,tmp);
@@ -95,9 +96,9 @@ public class Controler {
 			if(board.newInauguration(impala, tmp)){
 				pl.setScore(pl.getScore()+5);
 			};
-		} else if(impala <= 11){
+		} else if(impala < 11){
 			//We ask where to place the pawn on the line
-			System.out.println("Please select abscissa: ");
+			System.out.println("Please select abscissa (0 to 4) : ");
 			tmp = Config.sc.nextInt();
 			//We place the pawn
 			placePawn(pl,tmp,impala - 6);
@@ -105,23 +106,26 @@ public class Controler {
 			if(board.newInauguration(tmp, impala - 6)){
 				pl.setScore(pl.getScore()+5);
 			};
-		} else if(impala <= 17){
+		} else if(impala < 17){
 			//And so on ...
-			System.out.println("Please select ordinate: ");
+			System.out.println("Please select ordinate (0 to 5) : ");
 			tmp = Config.sc.nextInt();
 			placePawn(pl,-(impala) + 18,tmp);
 			if(board.newInauguration(-(impala) + 18, tmp)){
 				pl.setScore(pl.getScore()+5);
 			};
 		} else {
-			System.out.println("Please select abscissa: ");
+			System.out.println("Please select abscissa (0 to 4) : ");
 			tmp = Config.sc.nextInt();
 			placePawn(pl,tmp,-(impala) + 23);
 			if(board.newInauguration(tmp, -(impala) +23)){
 				pl.setScore(pl.getScore()+5);
 			};
 		}
+		
+		this.currentPlayer1 = !this.currentPlayer1;
 	}
+	
 	
 	/**
 	 * Places a pawn on a square, both selected by the player
@@ -130,12 +134,13 @@ public class Controler {
 	 * @param y
 	 */
 	public void placePawn(Player pl, int x, int y){
-		if(board.getPawnAt(x,y)!=null){
+		this.board.out();
+		if(0 > x || x > 5 || 0 > y || y > 4 || board.getPawnAt(x,y) != null){
 			System.out.println("You can't place a pawn here");
 		} else {
 			Pawn p = pl.choosePawn();
 			board.adjPown(x, y, p);
-			//This is where we take care ofthe case of a Lion being placed next to a Gazelle
+			//This is where we take care of the case of a Lion being placed next to a Gazelle
 			if(p.toString()=="Lion"){
 				ArrayList<Square> voisins = board.voisins(x, y);
 				for(Square sq : voisins){
@@ -148,6 +153,7 @@ public class Controler {
 		}
 	}
 
+	
 	/**
 	 * Shows the player's points
 	 * If the game is over, it also shows who won
@@ -179,6 +185,7 @@ public class Controler {
 			Player2.returningGazelle(p);
 		}
 	}
+	
 
 	/**
 	 * Select position of Impala Jones
@@ -186,10 +193,10 @@ public class Controler {
 	private void placeImpala() {
 		try {
 			do {
-				System.out.print(this.Player1.getName() + " where you want to place the Impala Jones ? (1 to 22) :\t");
+				System.out.print(this.Player1.getName() + " where you want to place the Impala Jones ? (0 to 21) :\t");
 				this.impala = Config.sc.nextInt();
 				System.out.println();
-			}while(1 > impala || impala > 22);
+			}while(0 > impala || impala > 21);
 		}
 		catch(java.util.InputMismatchException e) {
 			System.out.print("Bad entry try again...");

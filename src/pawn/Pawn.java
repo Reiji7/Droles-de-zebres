@@ -33,6 +33,12 @@ public abstract class Pawn {
 		return this.color;
 	}
 	
+	
+	public String getName(){
+		return this.name;
+	}
+	
+	
 	public int getValue(){
 		return this.value;
 	}

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package game;
 
 import pawn.Pawn;
@@ -11,24 +8,35 @@ import pawn.Pawn;
  */
 public class Square {
 	
+	
 	private int sector;
 	private Pawn pawn = null;
 	
+	
 	public Pawn getPawn(){
-		return this.pawn;
+		try {
+			return this.pawn;
+		}
+		catch(NullPointerException e) {
+			return null;
+		}
 	}
+	
 	
 	public int getSector(){
 		return this.sector;
 	}
 
+	
 	public Square(int sector){
 		this.sector = sector;
 	}
 	
+	
 	public void adjPown(Pawn p) {
 		this.pawn = p;
 	}
+	
 	
 	/**
 	 * Removes the pawn from the square
@@ -37,9 +45,11 @@ public class Square {
 		this.pawn = null;
 	}
 	
+	
 	public void swap(Square s){
 		Pawn tmp = this.pawn;
-		this.pawn = s.pawn;
-		s.pawn = tmp;
+		this.pawn = s.getPawn();
+		s.adjPown(tmp);
 	}
+	
 }

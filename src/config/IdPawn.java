@@ -5,6 +5,7 @@ package config;
  */
 public enum IdPawn {
 
+	Null(-1),
 	Zebra(6),
 	Gazelle(2),
 	Elephant(5),
@@ -14,9 +15,11 @@ public enum IdPawn {
 	
 	private int value;
 	   
+
 	IdPawn(int value){
 		this.value = value;
 	}
+	
 
 	public int getValue() {
 		return this.value;

@@ -2,13 +2,13 @@ package player;
 
 
 import java.util.ArrayList;
-
 import config.Config;
 import pawn.*;
 
 
 public class Player {
 
+	
 	private String name;
 	private ArrayList<Pawn> pawnBox;
 	private int score;
@@ -41,21 +41,26 @@ public class Player {
 		
 	}
 
+	
 	public int pawnBoxSize(){
 		return this.pawnBox.size();
 	}
+	
 	
 	public void setScore(int score){
 		this.score = score;
 	}
 	
+	
 	public int getScore(){
 		return score;
 	}
 	
+	
 	public String getColor(){
 		return this.color;
 	}
+	
 	
 	/**
 	 * Pawn selection procedure
@@ -83,10 +88,10 @@ public class Player {
 		try {
 			do {
 				distinctList = listPawn();
-				System.out.print(this.name + " choose your pawn : (1 to " + String.valueOf(distinctList.size()-1) + ") :\t");
+				System.out.print(this.name + " choose your pawn : (0 to " + String.valueOf(distinctList.size()-1) + ") :\t");
 				result = Config.sc.nextInt();
 				System.out.println();
-			}while(1 > result || result > distinctList.size());
+			}while(0 > result || result > distinctList.size());
 		}
 		catch(java.util.InputMismatchException e) {
 			System.out.println("Bad entry try again...");
@@ -94,8 +99,6 @@ public class Player {
 		
 		return distinctList.get(result);
 	}
-	
-
 
 
 	/**
@@ -139,6 +142,7 @@ public class Player {
 		}
 		return i;
 	}
+	
 
 	/**
 	 * Returns the pawn (needs to be a Gazelle) to this player's pawnBox

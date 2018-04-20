@@ -34,9 +34,11 @@ public class Board {
 		}
 	}
 	
+	
 	public Pawn getPawnAt(int x, int y){
 		return board[x][y].getPawn();
 	}
+	
 	
 	public boolean newInauguration(int x, int y){
 		if(inauguration == true){
@@ -56,6 +58,7 @@ public class Board {
 		return true;
 	}
 	
+	
 	/**
 	 * Adding pawn 
 	 * 
@@ -67,9 +70,9 @@ public class Board {
 	 */
 	public boolean adjPown(int x, int y, Pawn p) {
 
-		if(x < 0 || x > 6)
+		if(0 > x || x > 5)
 			return false;
-		if(y < 0 || y > 5)
+		if(0 > y || y > 4)
 			return false;
 		if(board[x][y].getPawn() != null){
 			return false;
@@ -142,6 +145,7 @@ public class Board {
 			return false;
 		}
 	}
+	
 
 	/**
 	 * Removes the pawn from the selected square
@@ -150,6 +154,7 @@ public class Board {
 	public void removePawn(Square sq){
 		sq.removePawn();
 	}
+	
 	
 	/**
 	 * Returns a square's neighbors 
@@ -163,7 +168,7 @@ public class Board {
 		case 0:
 			tmp.add(board[x+1][y]);
 			break;
-		case 6:
+		case 4:
 			tmp.add(board[x-1][y]);
 			break;
 		default:
@@ -215,6 +220,7 @@ public class Board {
 		return echangeable;
 	}
 	
+	
 	/**
 	 * Counts the player's points
 	 * @return [2] int, int[0] is the red player, int[1] is the blue player
@@ -234,4 +240,21 @@ public class Board {
 		}
 		return points;
 	}
+	
+	
+	public void out() {
+		System.out.println();
+		
+		for(int index1 = 0; index1 < this.board.length; index1++) {
+			for(int index2 = 0; index2 < this.board[index1].length; index2++) {
+				if(this.board[index1][index2].getPawn() == null)
+					System.out.print(" ¤ ");
+				else
+					System.out.print(" " + this.board[index1][index2].getPawn().getValue() + " ");
+			}
+			System.out.println();
+		}
+		
+	}
+	
 }
