@@ -1,9 +1,7 @@
 package game;
 
 import player.Player;
-
 import java.util.ArrayList;
-
 import config.Config;
 import pawn.Pawn;
 
