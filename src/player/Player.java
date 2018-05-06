@@ -3,6 +3,8 @@ package player;
 
 import java.util.ArrayList;
 import config.Config;
+import game.Board;
+import game.Square;
 import pawn.*;
 
 
@@ -160,4 +162,110 @@ public class Player {
 	}
 
 
+	/**
+	 * Moves impala around the board
+	 */
+	public int moveImpala(int impala){
+		System.out.println(this.name + " how much does Impala moves? (between 1 and 3): ");
+		int tmp = 0;
+		
+		do{
+			tmp = Config.sc.nextInt();
+		}while (tmp<1 && tmp>3);
+		
+		impala += tmp;
+		if(impala > 22){
+			impala -= 22;
+		}
+		
+		return impala;
+	}
+	
+	
+	
+	/**
+	 * The player chooses where to place his pawn first, then we call placePawn() to select a pawn and place it
+	 * @param pl
+	 */
+	public void playPawn(int impala, Board board, Player other){
+		int tmp;
+		System.out.println("impala: " + impala);
+		if(impala<6){
+			//We ask where to place the pawn on the column
+			System.out.println("Please select ordinate (0 to 4) : ");
+			tmp = Config.sc.nextInt();
+			//We place the pawn
+			placePawn(board, impala,tmp, other);
+			//We check if this sector is ready to accept visitors
+			if(board.newInauguration(impala, tmp)){
+				setScore(getScore()+5);
+			};
+		} else if(impala < 11){
+			//We ask where to place the pawn on the line
+			System.out.println("Please select abscissa (0 to 5) : ");
+			tmp = Config.sc.nextInt();
+			//We place the pawn
+			placePawn(board, tmp,impala - 6, other);
+			//We check if this sector is ready to accept visitors
+			if(board.newInauguration(tmp, impala - 6)){
+				setScore(getScore()+5);
+			};
+		} else if(impala < 17){
+			//And so on ...
+			System.out.println("Please select ordinate (0 to 4) : ");
+			tmp = Config.sc.nextInt();
+			placePawn(board, -(impala) + 16,tmp, other);
+			if(board.newInauguration(-(impala) + 16, tmp)){
+				setScore(getScore()+5);
+			};
+		} else {
+			System.out.println("Please select abscissa (0 to 5) : ");
+			tmp = Config.sc.nextInt();
+			placePawn(board, tmp,-(impala) + 22, other);
+			if(board.newInauguration(tmp, -(impala) +22)){
+				setScore(getScore()+5);
+			};
+		}
+	}
+	
+	
+	/**
+	 * Returns a Gazelle to it's owner pawnBox
+	 * @param p
+	 */
+	public void flee(Player other, Pawn p){
+		if(other.getColor() == p.getColor()){
+			other.returningGazelle(p);
+		} else {
+			returningGazelle(p);
+		}
+	}
+
+
+	/**
+	 * Places a pawn on a square, both selected by the player
+	 * @param x
+	 * @param y
+	 */
+	public void placePawn(Board board, int x, int y, Player other){
+		board.out();
+		if(0 > x || x > 5 || 0 > y || y > 4 || board.getPawnAt(x,y) != null){
+			System.out.println("You can't place a pawn here");
+		} else {
+			Pawn p = choosePawn();
+			board.adjPown(x, y, p);
+			//This is where we take care of the case of a Lion being placed next to a Gazelle
+			if(p.toString()=="Lion"){
+				ArrayList<Square> voisins = board.voisins(x, y);
+				for(Square sq : voisins){
+					if(sq.getPawn() != null){
+						if(sq.getPawn().toString()=="Gazelle"){
+							flee(other, p);
+							board.removePawn(sq);
+						}
+					}
+				}
+			}
+		}
+	}
 }

@@ -22,8 +22,6 @@ public class Test {
 				t2.addChilds(list);
 		}
 
-		
-		test.out(0);
 
 	}
 

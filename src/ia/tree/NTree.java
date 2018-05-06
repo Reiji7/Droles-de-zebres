@@ -36,7 +36,8 @@ public class NTree <T>{
 		for(T node: added)
 			addChild(node);
 	}
-    
+
+
     public boolean isEmpty(){
         return this.root == null;
     }
@@ -44,6 +45,14 @@ public class NTree <T>{
     
     public boolean isLeaf(){
         return !isEmpty() && this.childs.size()==0;
+    }
+    
+    
+    public int height() {
+    	int count = 1;
+    	for(NTree<T> child : childs)
+    		count += child.height();
+    	return count;
     }
     
     
@@ -57,30 +66,24 @@ public class NTree <T>{
     }
     
     
-    public String toString(){     
-        String representation="[";
-        representation += this.root.toString();
-        representation += ",";
-        representation+="[";
-        for (NTree child: this.childs){
-            representation+=child.toString();
-            representation+=",";
-        }  
-        representation+="]";
-        return representation;
-    }
-    
-    
-    public void out(int p) {
+    public String toString(int p) {
 
-    	for(int i = 0; i < p; i++)
-    		System.out.print("  --> ");
+        String temp = new String();
     	
-        System.out.println(root.toString());
+    	for(int i = 0; i < p; i++)
+    		temp += "  --> ";
+    	
+        temp += root.toString() + "\n";
     	
     	if(!isLeaf())
             for (NTree child: this.childs)
-                child.out(p+1); 
+                temp += child.toString(p+1);
+    	
+    	return temp;
     }
     
+    
+    public void width() {
+    	
+    }
 }
