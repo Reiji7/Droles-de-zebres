@@ -239,19 +239,13 @@ public class Board {
 	 * Counts the player's points
 	 * @return [2] int, int[0] is the red player, int[1] is the blue player
 	 */
-	public int[] pointCounter(){
-		int[] points = new int[2];
-		for(int i=0;i<5;i++){
-			for(int j=0; j<6; j++){
-				if(board[i][j].getPawn()!=null){
-					if(board[i][j].getPawn().getColor()=="Rouge"){
-						points[0] += board[i][j].getPawn().getValue();
-					}else{
-						points[1] += board[i][j].getPawn().getValue();
-					}
-				}
-			}
-		}
+	public int pointCounter(String color){
+		int points = 0;
+		for(int i=0;i<5;i++)
+			for(int j=0; j<6; j++)
+				if(board[i][j].getPawn()!=null)
+					if(board[i][j].getPawn().getColor() == color)
+						points += board[i][j].getPawn().getValue();
 		return points;
 	}
 	
@@ -268,7 +262,7 @@ public class Board {
 			}
 			System.out.println();
 		}
-		
+		System.out.println();
 	}
 	
 }

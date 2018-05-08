@@ -3,7 +3,6 @@ package player;
 
 import java.util.ArrayList;
 import config.Config;
-import game.Board;
 import game.Square;
 import pawn.*;
 
@@ -42,7 +41,7 @@ public class Player {
 		pawnBox.add(new Crocodile(color));
 		
 	}
-
+	
 	
 	public int pawnBoxSize(){
 		return this.pawnBox.size();
@@ -50,7 +49,7 @@ public class Player {
 	
 	
 	public void setScore(int score){
-		this.score = score;
+		this.score = Config.board.pointCounter(this.color);
 	}
 	
 	
@@ -109,7 +108,6 @@ public class Player {
 	 */
 	private ArrayList<Pawn> listPawn() {
 		ArrayList<Pawn> distinctList = new ArrayList();
-		ArrayList<Integer> numb = new ArrayList();
 		ArrayList<String> tamp = new ArrayList();
 		
 		for(Pawn p : pawnBox) {
@@ -182,47 +180,46 @@ public class Player {
 	}
 	
 	
-	
 	/**
 	 * The player chooses where to place his pawn first, then we call placePawn() to select a pawn and place it
 	 * @param pl
 	 */
-	public void playPawn(int impala, Board board, Player other){
+	public void playPawn(int impala, Player other){
 		int tmp;
 		System.out.println("impala: " + impala);
 		if(impala<6){
 			//We ask where to place the pawn on the column
-			System.out.println("Please select ordinate (0 to 4) : ");
+			System.out.println(name + " please select ordinate (0 to 4) : ");
 			tmp = Config.sc.nextInt();
 			//We place the pawn
-			placePawn(board, impala,tmp, other);
+			placePawn(impala,tmp, other);
 			//We check if this sector is ready to accept visitors
-			if(board.newInauguration(impala, tmp)){
+			if(Config.board.newInauguration(impala, tmp)){
 				setScore(getScore()+5);
 			};
 		} else if(impala < 11){
 			//We ask where to place the pawn on the line
-			System.out.println("Please select abscissa (0 to 5) : ");
+			System.out.println(name + " please select abscissa (0 to 5) : ");
 			tmp = Config.sc.nextInt();
 			//We place the pawn
-			placePawn(board, tmp,impala - 6, other);
+			placePawn(tmp,impala - 6, other);
 			//We check if this sector is ready to accept visitors
-			if(board.newInauguration(tmp, impala - 6)){
+			if(Config.board.newInauguration(tmp, impala - 6)){
 				setScore(getScore()+5);
 			};
 		} else if(impala < 17){
 			//And so on ...
-			System.out.println("Please select ordinate (0 to 4) : ");
+			System.out.println(name + " please select ordinate (0 to 4) : ");
 			tmp = Config.sc.nextInt();
-			placePawn(board, -(impala) + 16,tmp, other);
-			if(board.newInauguration(-(impala) + 16, tmp)){
+			placePawn(-(impala) + 16,tmp, other);
+			if(Config.board.newInauguration(-(impala) + 16, tmp)){
 				setScore(getScore()+5);
 			};
 		} else {
-			System.out.println("Please select abscissa (0 to 5) : ");
+			System.out.println(name + " please select abscissa (0 to 5) : ");
 			tmp = Config.sc.nextInt();
-			placePawn(board, tmp,-(impala) + 22, other);
-			if(board.newInauguration(tmp, -(impala) +22)){
+			placePawn(tmp,-(impala) + 22, other);
+			if(Config.board.newInauguration(tmp, -(impala) +22)){
 				setScore(getScore()+5);
 			};
 		}
@@ -247,25 +244,46 @@ public class Player {
 	 * @param x
 	 * @param y
 	 */
-	public void placePawn(Board board, int x, int y, Player other){
-		board.out();
-		if(0 > x || x > 5 || 0 > y || y > 4 || board.getPawnAt(x,y) != null){
+	public void placePawn(int x, int y, Player other){
+		Config.board.out();
+		if(0 > x || x > 5 || 0 > y || y > 4 || Config.board.getPawnAt(x,y) != null){
 			System.out.println("You can't place a pawn here");
 		} else {
 			Pawn p = choosePawn();
-			board.adjPown(x, y, p);
+			Config.board.adjPown(x, y, p);
 			//This is where we take care of the case of a Lion being placed next to a Gazelle
 			if(p.toString()=="Lion"){
-				ArrayList<Square> voisins = board.voisins(x, y);
+				ArrayList<Square> voisins = Config.board.voisins(x, y);
 				for(Square sq : voisins){
 					if(sq.getPawn() != null){
 						if(sq.getPawn().toString()=="Gazelle"){
 							flee(other, p);
-							board.removePawn(sq);
+							Config.board.removePawn(sq);
 						}
 					}
 				}
 			}
 		}
 	}
+	
+	
+	/**
+	 * Select position of Impala Jones
+	 */
+	public int placeImpala() {
+		int impala = 0;
+		try {
+			do {
+				System.out.print(this.getName() + " where you want to place the Impala Jones ? (0 to 21) :\t");
+				impala = Config.sc.nextInt();
+				System.out.println();
+			}while(0 > impala || impala > 21);
+		}
+		catch(java.util.InputMismatchException e) {
+			System.out.print("Bad entry try again...");
+		}
+		
+		return impala;
+	}
+	
 }
